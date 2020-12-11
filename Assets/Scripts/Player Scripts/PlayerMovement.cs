@@ -6,16 +6,23 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private CharacterController character_Controller;
-    private Vector3 move_Direction;
-    public float speed = 5f;
+    #region Variables
+    #region Private
+    private CharacterController characterController;
+    private Vector3 moveDirection;
     private float gravity = 20f;
-    public float jump_Force = 10f;
-    private float vertical_Velocity;
+    private float verticalVelocity;
+    #endregion
+
+    #region Public
+    public float speed = 5f;
+    public float jumpForce = 10f;
+    #endregion
+    #endregion
 
     void Awake()
     {
-        character_Controller = GetComponent<CharacterController>();
+        characterController = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -23,31 +30,36 @@ public class PlayerMovement : MonoBehaviour
         MoveThePlayer();
     }
 
+    #region Custom Functions
     void MoveThePlayer()
     {
-        move_Direction = new Vector3(Input.GetAxis(Axis.HORIZONTAL), 0f, Input.GetAxis(Axis.VERTICAL));
+        moveDirection = new Vector3(Input.GetAxis(Axis.HORIZONTAL), 0f, Input.GetAxis(Axis.VERTICAL));
 
-        move_Direction = transform.TransformDirection(move_Direction);
-        move_Direction *= speed * Time.deltaTime;
+        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection *= speed * Time.deltaTime;
 
         ApplyGravity();
-        character_Controller.Move(move_Direction);
+        characterController.Move(moveDirection);
     }
 
     void ApplyGravity()
     {
-        vertical_Velocity -= gravity * Time.deltaTime;
-        
-        PlayerJump();
+        verticalVelocity -= gravity * Time.deltaTime;
 
-        move_Direction.y = vertical_Velocity * Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PlayerJump();
+        }
+
+        moveDirection.y = verticalVelocity * Time.deltaTime;
     }
 
     void PlayerJump()
     {
-        if(character_Controller.isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if(characterController.isGrounded)
         {
-            vertical_Velocity = jump_Force;
+            verticalVelocity = jumpForce;
         }
     }
+    #endregion
 }
