@@ -41,42 +41,42 @@ public class WeaponsHandler : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    void Shoot()
+    public void Shoot()
     {
         anim.SetTrigger(AnimationTags.SHOOT);
     }
 
-    void Aim(bool canAim)
+    public void Aim(bool canAim)
     {
         anim.SetBool(AnimationTags.AIM, canAim);
     }
 
-    void MuzzleFlashOn()
+    public void MuzzleFlashOn()
     {
         muzzleFlash.SetActive(true);
     }
 
-    void MuzzleFlashOff()
+    public void MuzzleFlashOff()
     {
         muzzleFlash.SetActive(false);
     }
 
-    void PlayShootSound()
+    public void PlayShootSound()
     {
         shootSound.Play();
     }
 
-    void PlayReloadSound()
+    public void PlayReloadSound()
     {
         reloadSound.Play();
     }
 
-    void AttackPointOn()
+    public void AttackPointOn()
     {
         attackPoint.SetActive(true);
     }
 
-    void AttackPointOff()
+    public void AttackPointOff()
     {
         if(attackPoint.activeInHierarchy)
         {
